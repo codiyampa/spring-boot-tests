@@ -1,0 +1,19 @@
+### Local Rest Client for VSCode
+### Download: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+@baseurl = http://localhost:8080/v1
+
+@contentType = application/json
+### @token = <JWT_TOKEN>
+
+### LOGS
+### Create Log
+POST {{baseurl}}/logs/create
+Content-Type: application/json
+
+{
+  "message": "Log: error occurred while opening the file 'account.yaml'"
+}
+
+### Get Error Logs
+GET {{baseurl}}/logs/errors

@@ -1,0 +1,6 @@
+CREATE TABLE error_log (
+    id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY,
+    creation_date TIMESTAMP NOT NULL,
+    message TEXT NOT NULL,
+    PRIMARY KEY (id)
+);
