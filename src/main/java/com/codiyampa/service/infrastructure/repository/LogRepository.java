@@ -1,13 +1,11 @@
 package com.codiyampa.service.infrastructure.repository;
 
-import com.codiyampa.jooq.public_.tables.ErrorLog;
-import com.codiyampa.jooq.public_.tables.records.ErrorLogRecord;
-import com.codiyampa.service.infrastructure.web.model.LogDto;
+import com.codiyampa.jooq.public_.Tables;
+import com.codiyampa.jooq.public_.tables.pojos.ErrorLog;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,17 +23,17 @@ public class LogRepository {
         this.dslContext = dslContext;
     }
 
-    public List<ErrorLogRecord> getErrorLogs(){
+    public List<ErrorLog> getErrorLogs() {
         return dslContext
-                .selectFrom(ErrorLog.ERROR_LOG)
+                .selectFrom(Tables.ERROR_LOG)
                 .limit(10)
-                .fetch();
+                .fetchInto(ErrorLog.class);
     }
 
-    public void saveErrorLog(LogDto logDto){
+    public void saveErrorLog(ErrorLog errorLog) {
         dslContext
-                .insertInto(ErrorLog.ERROR_LOG, ErrorLog.ERROR_LOG.CREATION_DATE, ErrorLog.ERROR_LOG.MESSAGE)
-                .values(LocalDateTime.now(), logDto.getMessage())
+                .insertInto(Tables.ERROR_LOG, Tables.ERROR_LOG.CREATION_DATE, Tables.ERROR_LOG.MESSAGE)
+                .values(errorLog.getCreationDate(), errorLog.getMessage())
                 .execute();
     }
 }

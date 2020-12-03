@@ -37,9 +37,9 @@ class LogController {
     List<LogDto> getErrorLogs() {
         return logService.getErrorLogs().stream()
                 .map(errorLog -> new LogDto(
-                        errorLog.getValue(ErrorLog.ERROR_LOG.ID),
-                        errorLog.getValue(ErrorLog.ERROR_LOG.CREATION_DATE),
-                        errorLog.getValue(ErrorLog.ERROR_LOG.MESSAGE)
+                        errorLog.getId(),
+                        errorLog.getCreationDate(),
+                        errorLog.getMessage()
                         )
                 )
                 .collect(Collectors.toList());

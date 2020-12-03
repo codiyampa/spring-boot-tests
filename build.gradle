@@ -52,6 +52,9 @@ jooq {
 						includes = '.*'
 						excludes = ''
 					}
+					generate {
+						pojos = true
+					}
 					target {
 						packageName = 'com.codiyampa.jooq'
 					}

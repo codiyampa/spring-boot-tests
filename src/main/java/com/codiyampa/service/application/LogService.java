@@ -1,11 +1,12 @@
 package com.codiyampa.service.application;
 
-import com.codiyampa.jooq.public_.tables.records.ErrorLogRecord;
+import com.codiyampa.jooq.public_.tables.pojos.ErrorLog;
 import com.codiyampa.service.infrastructure.repository.LogRepository;
 import com.codiyampa.service.infrastructure.web.model.LogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -25,11 +26,14 @@ public class LogService {
 
     public void createLog(LogDto logDto) {
         if (logDto.getMessage().contains("error")) {
-            logRepository.saveErrorLog(logDto);
+            ErrorLog errorLog = new ErrorLog();
+            errorLog.setCreationDate(LocalDateTime.now());
+            errorLog.setMessage(logDto.getMessage());
+            logRepository.saveErrorLog(errorLog);
         }
     }
 
-    public List<ErrorLogRecord> getErrorLogs() {
+    public List<ErrorLog> getErrorLogs() {
         return logRepository.getErrorLogs();
     }
 }
