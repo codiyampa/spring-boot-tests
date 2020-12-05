@@ -22,6 +22,7 @@ dependencies {
 	flywayMigration 'com.h2database:h2:1.4.200'
 	jooqGenerator 'com.h2database:h2:1.4.200'
 	compile 'com.h2database:h2:1.4.200'
+	runtime("org.flywaydb:flyway-core")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jooq'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
