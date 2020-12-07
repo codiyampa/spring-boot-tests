@@ -1,4 +1,5 @@
 spring:
+  # Database
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:~/db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
@@ -12,3 +13,37 @@ spring:
       path: /console/
       settings:
         web-allow-others: true
+
+  # Kafka
+  kafka:
+    bootstrap-servers: <subdomain>.confluent.cloud:9092
+
+    properties:
+      ssl.endpoint.identification.algorithm: https
+      sasl.mechanism: PLAIN
+      request.timeout.ms: 20000
+      security.protocol: SASL_SSL
+      retry.backoff.ms: 500
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='<key>' password='<secret>';
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        enable.idempotence: true
+
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.codiyampa.service.infrastructure.web.model
+      auto-offset-reset: earliest
+
+    # A missing topic on the broker will not fail the application startup
+    listener:
+      missing-topics-fatal: false
+
+# Logging
+logging:
+  level:
+    root: DEBUG
