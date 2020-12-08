@@ -26,17 +26,22 @@ spring:
       retry.backoff.ms: 500
       sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='<key>' password='<secret>';
 
+      # Kafka Schema Registry
+      schema.registry.url: <subdomain>.confluent.cloud
+      basic.auth.credentials.source: USER_INFO
+      schema.registry.basic.auth.user.info: <key>:<secret>
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       properties:
         enable.idempotence: true
 
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       properties:
-        spring.json.trusted.packages: com.codiyampa.service.infrastructure.web.model
+        specific.avro.reader: true
       auto-offset-reset: earliest
 
     # A missing topic on the broker will not fail the application startup

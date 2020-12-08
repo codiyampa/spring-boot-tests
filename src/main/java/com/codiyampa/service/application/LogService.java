@@ -28,11 +28,13 @@ public class LogService {
     }
 
     public void createLog(LogDto logDto) {
+        logDto.setCreationDate(LocalDateTime.now());
+
         kafkaSender.sendLog(logDto);
 
         if (logDto.getMessage().contains("error")) {
             ErrorLog errorLog = new ErrorLog();
-            errorLog.setCreationDate(LocalDateTime.now());
+            errorLog.setCreationDate(logDto.getCreationDate());
             errorLog.setMessage(logDto.getMessage());
             logRepository.saveErrorLog(errorLog);
         }

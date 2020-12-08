@@ -1,6 +1,6 @@
 package com.codiyampa.service.infrastructure.provider;
 
-import com.codiyampa.service.infrastructure.web.model.LogDto;
+import com.codiyampa.avro.Log;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class KafkaReceiver {
 
     @KafkaListener(topics = "logs", groupId = "logs-processing")
-    public void consumeLog(LogDto log) {
+    public void consumeLog(Log log) {
         // process log
         System.out.println("Consumed: " + log.getMessage());
     }

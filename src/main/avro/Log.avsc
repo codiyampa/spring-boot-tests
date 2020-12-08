@@ -1,0 +1,20 @@
+{
+  "namespace": "com.codiyampa.avro",
+  "type": "record",
+  "name": "Log",
+  "version": 1,
+  "doc": "Avro schema for our application logs.",
+  "fields": [
+    {
+      "name": "creationDate",
+      "type": "long",
+      "logicalType": "timestamp-millis",
+      "doc": "The creation date of the log."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "doc": "The message of the log."
+    }
+  ]
+}
