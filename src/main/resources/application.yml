@@ -51,4 +51,4 @@ spring:
 # Logging
 logging:
   level:
-    root: DEBUG
+    root: TRACE
